@@ -1,0 +1,23 @@
+import java.util.*;
+import javax.crypto.*;
+
+class BlowFish {
+    public static void main(String[] args) throws Exception {
+        KeyGenerator kgen = KeyGenerator.getInstance("Blowfish");
+        Cipher cipher = Cipher.getInstance("Blowfish");
+        SecretKey skey = kgen.generateKey();
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the message: ");
+        String str = sc.nextLine();
+        
+        byte[] raw = str.getBytes();
+        cipher.init(Cipher.ENCRYPT_MODE, skey);
+        byte[] encrypted = cipher.doFinal(raw);
+        cipher.init(Cipher.DECRYPT_MODE, skey);
+        byte[] decrypted = cipher.doFinal(encrypted);
+        
+        System.out.println("Encrypted text: " + new String(encrypted));
+        System.out.println("Decrypted text: " + new String(decrypted));
+    }
+}

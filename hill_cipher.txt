@@ -1,0 +1,48 @@
+#include<stdio.h>
+    
+    int main() {
+        int key_matrix[3][3] = {{6,24,1},{13,16,10},{20,17,15}};;
+        char text[3];
+        int text_matrix[3];
+        printf("Enter the text : ");
+        scanf("%s", text);
+        for(int i = 0; i < 3; i++) {
+            text_matrix[i] = text[i] - 65;
+        }
+        printf("%s", "Text matrix\n");
+        for(int i = 0; i < 3; i++) {
+                printf("%d\n", text_matrix[i]);
+        }
+        
+        int encrypted_matrix[3];
+        for(int i = 0; i < 3; i++) {
+            encrypted_matrix[i] = 0;
+            for(int j = 0; j < 3; j++) {
+                encrypted_matrix[i] += (key_matrix[i][j] * text_matrix[j]);
+            }
+        }
+        for(int i = 0; i < 3; i++) {
+            encrypted_matrix[i] = encrypted_matrix[i] % 26;
+        }
+        printf("%s", "Encrypted matrix\n");
+        for(int i = 0; i < 3; i++) {
+                printf("%c\n", encrypted_matrix[i] + 65);
+        }
+        
+        int inverse_key_matrix[3][3] = {{8,5,10},{21,8,21},{21,12,8}};
+        int decrypted_matrix[3];
+        for(int i = 0; i < 3; i++) {
+            decrypted_matrix[i] = 0;
+            for(int j = 0; j < 3; j++) {
+                decrypted_matrix[i] += (inverse_key_matrix[i][j] * encrypted_matrix[j]);
+            }
+        }
+        for(int i = 0; i < 3; i++) {
+            decrypted_matrix[i] = decrypted_matrix[i] % 26;
+        }
+        printf("%s", "Decrypted matrix\n");
+        for(int i = 0; i < 3; i++) {
+                printf("%c\n", decrypted_matrix[i] + 65);
+        }
+        
+    }

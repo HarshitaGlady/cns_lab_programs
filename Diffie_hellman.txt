@@ -1,0 +1,43 @@
+
+    #include<stdio.h>
+    int gcd(int a, int b) {
+        if(b == 0) return a;
+        else return gcd(b, a%b);
+    }
+    int modfun(int a, int n, int b) {
+        if(b == 1) return a % n;
+        else return a % n * modfun(a, n,  b-1) % n;
+    }
+    int main() {
+        int a, b;
+        printf("Enter two prime nos : ");
+        scanf("%d%d", &a, &b);
+        int n = a * b;
+        int phi = (a-1) * (b-1);
+        
+        int d, e;
+        printf("Enter encryption key : ");
+        scanf("%d", &e);
+        
+        if(0 < e < n && gcd(e, phi) == 1) {
+            for(int i = 2; i < n; i++) {
+                if((e*i)%phi == 1) {
+                    d = i;
+                    break;
+                } 
+            }
+            printf("KU : {%d, %d}\n", e, n);
+            printf("KR : {%d, %d}\n", d, n);
+            
+            int m;
+            printf("Enter the msg : ");
+            scanf("%d", &m);
+            
+            int em = modfun(m, n, e);
+            int dm = modfun(em, n, d);
+            
+            printf("The encrypted msg is : %d\n", em);
+            printf("The decrypted msg is : %d\n", dm);
+        } else printf("Error");
+    }
+    ```
